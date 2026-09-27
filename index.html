@@ -39,6 +39,16 @@ mark{background:var(--accent);color:#111;border-radius:3px;padding:0 2px}
 .errbox code{background:var(--bg);padding:2px 8px;border-radius:6px;border:1px solid var(--border)}
 .note{font-size:.72rem;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;display:block;margin-top:4px}
 footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border-top:1px solid var(--border);margin-top:30px;line-height:1.8}
+sup.fn,.fn{cursor:help;color:var(--accent2);font-weight:700;text-decoration:underline dotted rgba(240,192,64,.6);font-size:.92em}
+.fn{display:inline}
+.fnpop{position:fixed;z-index:400;display:none;background:var(--panel2);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;max-width:440px;width:max-content;box-shadow:0 6px 24px rgba(0,0,0,.6);font-size:.8rem;line-height:1.6;color:var(--text)}
+.fnpop .t{color:var(--accent2);font-weight:700;display:block;margin-bottom:6px;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px}
+.nemodal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:500;padding:16px}
+.nemodal.open{display:flex}
+.nemodal .box{background:var(--panel);border:1px solid var(--accent);border-radius:14px;padding:24px;width:100%;max-width:760px;max-height:88vh;overflow-y:auto;font-size:.85rem;line-height:1.7}
+.nemodal h3{color:var(--accent2);margin-bottom:4px}
+.nemodal .np{color:var(--accent2);font-weight:700;margin-top:16px}
+.nemodal .close{float:right;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
 @media(max-width:640px){.toolbar{position:static}}
 </style>
 </head>
@@ -63,6 +73,7 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border
     <option value="NO">Aja: NO</option>
   </select>
   <span id="count"></span>
+  <button class="btn" id="btnNE" style="border-color:var(--accent);color:var(--accent2)">📖 Nota Esplicativa</button>
 </div>
 
 <div class="errbox" id="errbox">
@@ -91,6 +102,14 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border
     ¹ Atti e documenti rilasciati dalle rappresentanze diplomatiche o consolari estere in Italia. ² Legalizzazione delle rappresentanze diplomatiche o consolari italiane. ³ Legalizzazione di competenza della Prefettura — Ufficio territoriale del Governo.
   </p>
 </main>
+
+<div class="fnpop" id="fnpop"><span class="t" id="fnpopT"></span><span id="fnpopB"></span></div>
+
+<div class="nemodal" id="neModal"><div class="box">
+<button class="close" id="neClose">×</button>
+<h3>NOTA ESPLICATIVA</h3>
+<div id="neBody" style="white-space:pre-wrap"></div>
+</div></div>
 
 <footer>
   Supertabella, ovvero guida allo scambio fra Italia ed estero di atti e documenti pubblici — a cura del Dott. Alberto Volpe (Ministero dell'interno).<br>
@@ -143,13 +162,63 @@ function tipoPill(t){
   return '';
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ===== NOTA ESPLICATIVA (pagine 71-82 del documento ufficiale) ===== */
+const NE = {
+"1":"Le denominazioni degli atti e documenti (ovvero le rispettive traduzioni) dipendono dalle norme negli Stati di rilascio; per quanto riguarda le tipologie di atti e documenti presentate in tabella e riportate di seguito in corsivo, esse possono essere omogenee rispetto agli atti e documenti contemplati da questa guida, senza esservi del tutto corrispondenti: certificati ed estratti di nascita, di matrimonio e di morte, certificati di stato civile, di capacità matrimoniale, certificati di famiglia e di stato di famiglia, certificati di cittadinanza, di residenza, di esistenza in vita, di stato libero, nulla osta al matrimonio, certificati e federe penali, certificati giudiziari e dei carichi pendenti, sentenze e decreti di divorzio, documenti militari e atti notarili (atti di notorietà, procure, testamenti olografi con ricognizione di firma, patti, atti e contratti, verbali, autenticazioni di copia e di firma) e atti amministrativi. Per le formalità richieste precedentemente alla data di vigenza, vanno considerate come fossero state effettuate alla data di vigenza.",
+"2":"Per questi atti e documenti la legalizzazione non è richiesta, ma potrebbe essere necessaria la traduzione, come illustrato nel punto 4 di questa NOTA ESPLICATIVA.",
+"3":"Atti e documenti: gli atti e documenti pubblici (a eccezione di quelli consolari¹) provenienti da ogni Stato non indicato nella tabella devono avere la legalizzazione diplomatica o consolare²; gli atti e documenti consolari¹ devono avere la legalizzazione prefettizia³, salvo esenzioni (art. 33, commi 2, 4, 5 del D.P.R. 28 dicembre 2000, n. 445). Per legalizzazione diplomatica o consolare² si intende la legalizzazione delle rappresentanze diplomatiche o consolari italiane.",
+"4":"Nelle more dell'individuazione delle soluzioni organizzative e tecnico operative necessarie per attuare quanto previsto dall'art. 16 del D.P.R. 28 dicembre 2000, n. 445, i pubblici ufficiali e i privati interessati provvedono, nel rispetto delle norme in materia di traduzioni e nel rispetto delle esigenze di certezza e verificabilità dei traduttori, mediante l'individuazione del traduttore perito o asseveratore, l'apposizione di un timbro o di una dichiarazione di conformità su cui il traduttore appone, a pena di invalidità, la data e la firma, debitamente autenticate secondo la legge (Circolari del Ministero della giustizia n. 1792 del 5 marzo 2014 e n. 5426 del 13 dicembre 2017, quest'ultima recante il modello di dichiarazione di conformità, e Circolare del Ministero dell'interno n. 15069 del 26 settembre 2018). Per questi atti e documenti la traduzione dovrà essere legalizzata² (ovvero dovrà avere la legalizzazione delle rappresentanze diplomatiche o consolari italiane). Si ricorda che non rilevano ai fini dell'accettazione in Italia delle traduzioni effettuate dalle Rappresentanze diplomatiche o consolari in Italia, in quanto esenti³ dalla legalizzazione prefettizia, mentre, per particolari esigenze, queste ultime possono essere accettate, salvo il contraddittorio di cui al punto 5.",
+"5":"Poiché questa guida si attiene ai contenuti della Convenzione di Vienna dell'8 settembre 1976, delle altre convenzioni di diritto internazionale privato e della prassi consolidata, gli utenti possono fare riferimento unicamente alle sole formalità che, per essere state eseguite in epoca anteriore al 15 dicembre 2004, non sono state notificate ai sensi della L. 25 marzo 1958, n. 204, sono: qualsiasi legalizzazione e qualsiasi atto di traduzione autenticato.",
+"7":"Per gli atti e documenti pubblici cui è applicabile l'art. 2, paragrafo 1, lettera m) del Regolamento (UE) 2016/1191, sono compresi, fra gli altri, i certificati penali dei cittadini dell'Unione, la cui richiesta può essere inviata tramite il sistema ECRIS al sistema informativo italiano.",
+"8":"A margine si segnala che, in occasione del ricorso giurisdizionale proposto con riferimento agli artt. 54, 76 e 78 del D.P.R. n. 445 del 2000 e che la Corte Costituzionale ha dichiarato manifestamente infondate le questioni di legittimità costituzionale (sentenze n. 6 e 7 del 2010), nel motivare ha osservato che l'acquisizione dei documenti anagrafici (documenti di stato civile, atti di nascita, di matrimonio ecc.), prodotti da uno Stato estero, in fotocopia autenticata o in originale, obbliga l'ufficiale di stato civile ad attenersi a quanto risulta dal documento stesso, senza che gli sia consentito svolgere indagini al riguardo, senza che possa rilevare d'ufficio la falsità del documento e senza che possa indagire, sempre d'ufficio, sulla verità del fatto assunto come vero nel documento."
+};
+const FNDEF = {"1":"1 Atti e documenti rilasciati dalle rappresentanze diplomatiche o consolari estere in Italia.","2":"2 Legalizzazione delle rappresentanze diplomatiche o consolari italiane.","3":"3 Legalizzazione di competenza della Prefettura — Ufficio territoriale del Governo."};
+const FNMAP = {"¹":1,"²":3,"³":4};  /* apicale -> punto Nota Esplicativa */
+const FNTITLE = {1:"Nota Esplicativa — punto 1",2:"Nota Esplicativa — punto 2",3:"Nota Esplicativa — punto 3",4:"Nota Esplicativa — punto 4",5:"Nota Esplicativa — punto 5",7:"Nota Esplicativa — punto 7",8:"Nota Esplicativa — punto 8"};
+
+function fnWrap(e){
+  e=e.replace(/([¹²³])/g,m=>`<sup class="fn" data-fn="${FNMAP[m]}">${m}</sup>`);
+  e=e.replace(/punto (\d)\)/g,(m,n)=>NE[n]?`<span class="fn" data-fn="${n}">${m}</span>`:m);
+  return e;
+}
+const pop=document.getElementById('fnpop');
+function showFn(el){
+  const n=el.dataset.fn;
+  document.getElementById('fnpopT').textContent=FNTITLE[n]||('Nota '+n);
+  document.getElementById('fnpopB').textContent=NE[n]||'';
+  pop.style.display='block';
+  const r=el.getBoundingClientRect();
+  let x=r.left, y=r.bottom+8;
+  const pw=pop.offsetWidth, ph=pop.offsetHeight;
+  if(x+pw>window.innerWidth-8) x=window.innerWidth-pw-8;
+  if(y+ph>window.innerHeight-8) y=r.top-ph-8;
+  pop.style.left=Math.max(8,x)+'px'; pop.style.top=Math.max(8,y)+'px';
+}
+function hideFn(){pop.style.display='none';}
+document.getElementById('tb').addEventListener('mouseover',e=>{const el=e.target.closest('.fn');if(el)showFn(el);});
+document.getElementById('tb').addEventListener('mouseout',e=>{if(e.target.closest('.fn'))hideFn();});
+document.getElementById('tb').addEventListener('click',e=>{const el=e.target.closest('.fn');if(el){e.preventDefault();showFn(el);}});
+document.addEventListener('click',e=>{if(!e.target.closest('.fn')&&!e.target.closest('#fnpop'))hideFn();});
+
+/* Modal Nota Esplicativa completa */
+let neHtml='';
+for(const n of ["1","2","3","4","5","7","8"]){
+  neHtml+=`<div class="np">PUNTO ${n}</div><div>${NE[n]}</div>`;
+}
+neHtml+='<div class="np">NOTE DI PAGINA</div><div>'+FNDEF["1"]+'<br>'+FNDEF["2"]+'<br>'+FNDEF["3"]+'</div>';
+document.getElementById('neBody').innerHTML=neHtml;
+document.getElementById('btnNE').onclick=()=>document.getElementById('neModal').classList.add('open');
+document.getElementById('neClose').onclick=()=>document.getElementById('neModal').classList.remove('open');
+document.getElementById('neModal').addEventListener('click',e=>{if(e.target.id==='neModal')e.target.classList.remove('open');});
+
 function cell(text,q){
   let e=esc(text).replace(/\n/g,'<br>');
   if(q){
     const qq=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
     e=e.replace(new RegExp('('+qq+')','gi'),'<mark>$1</mark>');
   }
-  return e;
+  return fnWrap(e);
 }
 
 function render(){
