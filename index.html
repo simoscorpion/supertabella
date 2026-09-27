@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Supertabella Volpe — Ricerca Legalizzazioni</title>
+<title>Supertabella Volpe — Guida allo scambio di atti e documenti pubblici</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --border:#2d3646;
@@ -14,93 +14,128 @@
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 a{color:var(--blue)}
 header{background:linear-gradient(135deg,#101725 0%,#1a2436 100%);border-bottom:3px solid var(--accent);padding:28px 20px 22px;text-align:center}
-header h1{font-size:clamp(1.3rem,3.5vw,2rem);letter-spacing:.5px}
+header h1{font-size:clamp(1.25rem,3.2vw,1.9rem);letter-spacing:.5px}
 header h1 .gold{color:var(--accent2)}
-header p{color:var(--muted);margin-top:6px;font-size:.9rem;max-width:820px;margin-left:auto;margin-right:auto}
+header p{color:var(--muted);margin-top:6px;font-size:.88rem;max-width:860px;margin-left:auto;margin-right:auto}
 .badge{display:inline-block;background:var(--accent);color:#111;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;vertical-align:middle;margin-left:8px;letter-spacing:1px;text-transform:uppercase}
 .toolbar{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .toolbar input[type=search]{flex:1;min-width:200px;padding:11px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.95rem;outline:none}
 .toolbar input[type=search]:focus{border-color:var(--accent)}
 select{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem}
 #count{color:var(--muted);font-size:.8rem;white-space:nowrap}
-main{padding:20px;max-width:1400px;margin:0 auto}
+main{padding:20px;max-width:1500px;margin:0 auto}
 .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--panel)}
-table{border-collapse:collapse;width:100%;min-width:980px}
-thead th{background:var(--panel2);color:var(--accent2);text-align:left;padding:12px 14px;font-size:.78rem;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid var(--accent);white-space:nowrap}
-tbody td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.88rem;line-height:1.5}
+table{border-collapse:collapse;width:100%;min-width:1100px}
+thead th{background:var(--panel2);color:var(--accent2);text-align:left;padding:12px 14px;font-size:.76rem;text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid var(--accent);vertical-align:bottom}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.86rem;line-height:1.55}
 tbody tr:hover{background:rgba(212,160,23,.06)}
-td.stato{font-weight:700;color:var(--accent2);white-space:nowrap}
+td.stato{font-weight:700;color:var(--accent2)}
 mark{background:var(--accent);color:#111;border-radius:3px;padding:0 2px}
-.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.72rem;font-weight:700;margin:1px 2px}
+.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700;margin:1px 2px}
 .pill.apo{background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.4)}
-.pill.none{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.4)}
+.pill.none{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,50,.4)}
 .pill.leg{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.4)}
 .errbox{display:none;background:rgba(248,81,73,.1);border:1px solid var(--red);color:var(--red);border-radius:12px;padding:20px;margin:20px auto;max-width:700px;font-size:.9rem;line-height:1.8}
 .errbox code{background:var(--bg);padding:2px 8px;border-radius:6px;border:1px solid var(--border)}
-footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border-top:1px solid var(--border);margin-top:30px}
+.note{font-size:.72rem;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;display:block;margin-top:4px}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border-top:1px solid var(--border);margin-top:30px;line-height:1.8}
 @media(max-width:640px){.toolbar{position:static}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>SUPERTABELLA <span class="gold">VOLPE</span><span class="badge">Sola lettura</span></h1>
-  <p>Guida completa allo scambio fra Italia ed estero di atti e documenti pubblici — ricerca per Stato, forma di legalizzazione, autorità Apostille e note. I dati sono caricati dal file <b>supertabella_volpe.csv</b>.</p>
+  <h1>SUPERTABELLA <span class="gold">VOLPE</span><span class="badge">Ricerca</span></h1>
+  <p>Guida allo scambio fra Italia ed estero di atti e documenti pubblici, nonché alle procedure per il loro riconoscimento, in particolare per la richiesta della cittadinanza italiana — a cura del Dott. Alberto Volpe (Ministero dell'Interno). I dati sono caricati dal file <b>supertabella_volpe.csv</b>.</p>
 </header>
 
 <div class="toolbar">
-  <input type="search" id="q" placeholder="🔍 Cerca Stato, convenzione, autorità, parola chiave… (es. 'Brasile', 'Apostille', 'Londra')">
+  <input type="search" id="q" placeholder="🔍 Cerca Stato, convenzione, parola chiave… (es. 'Brasile', 'Apostille', 'Bruxelles')">
   <select id="fTipo">
     <option value="">Tutte le forme</option>
     <option value="apostille">Solo Apostille</option>
     <option value="nessuna">Nessuna legalizzazione</option>
-    <option value="legalizzazione">Legalizzazione diplomatica/prefettizia</option>
+    <option value="legalizzazione">Legalizzazione</option>
+  </select>
+  <select id="fAja">
+    <option value="">Aja: tutti</option>
+    <option value="SÌ">Aja: SÌ</option>
+    <option value="NO">Aja: NO</option>
   </select>
   <span id="count"></span>
 </div>
 
 <div class="errbox" id="errbox">
   <b>⚠️ Impossibile caricare il file dei dati.</b><br>
-  Il sito legge i dati dal file <code>supertabella_volpe.csv</code>, che deve trovarsi nella <b>stessa cartella</b> di questa pagina HTML.<br>
-  Se hai aperto la pagina con doppio clic e vedi questo messaggio, il tuo browser blocca la lettura di file locali: usa Firefox, oppure avvia un piccolo server nella cartella con <code>python -m http.server</code> e apri <code>http://localhost:8000</code>, oppure pubblica entrambi i file su un hosting web.
+  Il sito legge i dati dal file <code>supertabella_volpe.csv</code>, che deve trovarsi nella <b>stessa cartella</b> di questa pagina.<br>
+  Se hai aperto la pagina con doppio clic e vedi questo messaggio, il browser blocca la lettura di file locali: usa Firefox, oppure avvia un server con <code>python -m http.server</code> e apri <code>http://localhost:8000</code>, oppure pubblica entrambi i file su un hosting (es. GitHub Pages).
 </div>
 
 <main>
   <div class="tablewrap">
     <table>
       <thead><tr>
-        <th>Stato</th><th>Atti pubblici — forma richiesta</th><th>Atti consolari</th><th>Autorità Apostille</th><th>Note</th>
+        <th>Stato di provenienza degli atti e documenti</th>
+        <th>Atti dello stato civile</th>
+        <th>Certificati penali</th>
+        <th>Atti e documenti consolari¹</th>
+        <th>Autorità competenti per il rilascio dell'Apostille, se richiesta</th>
+        <th>Parte della Convenzione dell'Aja</th>
+        <th>Note<span class="note">(le denominazioni di atti e documenti dipendono dalle norme negli Stati di rilascio — per le formalità richieste prima della vigenza, vedi NOTA ESPLICATIVA punto 1)</span></th>
       </tr></thead>
       <tbody id="tb"></tbody>
     </table>
   </div>
 
-  <p style="color:var(--muted);font-size:.75rem;margin-top:12px">
-    Dati ricavati dalla "Supertabella" a cura del Dott. Alberto Volpe (Ministero dell'Interno) e dalla tabella di stato HCCH della Convenzione dell'Aja (agg. 30.06.2026). Per gli Stati senza esenzioni vale la regola generale: legalizzazione diplomatica o consolare per gli atti pubblici, legalizzazione prefettizia per gli atti consolari. Per aggiornare i contenuti modifica il file CSV e ricarica la pagina. Uso orientativo: fonte primaria restano i siti ufficiali.
+  <p style="color:var(--muted);font-size:.75rem;margin-top:12px;line-height:1.8">
+    <b>Regola generale</b>: gli atti e documenti pubblici (a eccezione di quelli consolari¹) provenienti da ogni Stato <b>non indicato</b> nella tabella devono avere la legalizzazione diplomatica o consolare²; gli atti e documenti consolari¹ devono avere la legalizzazione prefettizia³, salvo esenzioni (art. 33, commi 2, 4, 5 del D.P.R. 28 dicembre 2000, n. 445).<br>
+    ¹ Atti e documenti rilasciati dalle rappresentanze diplomatiche o consolari estere in Italia. ² Legalizzazione delle rappresentanze diplomatiche o consolari italiane. ³ Legalizzazione di competenza della Prefettura — Ufficio territoriale del Governo.
   </p>
 </main>
 
-<footer>Supertabella Volpe WebApp — fonti: Ministero dell'Interno, HCCH (Conferenza dell'Aja).</footer>
+<footer>
+  Supertabella, ovvero guida allo scambio fra Italia ed estero di atti e documenti pubblici — a cura del Dott. Alberto Volpe (Ministero dell'interno).<br>
+  Fonti primarie di consultazione: siti ufficiali degli enti nazionali e sovranazionali; Apostille Section della Conferenza de La Haye de Droit International Privé (HCCH). Uso orientativo.
+</footer>
 
 <script>
-/* ===== CARICAMENTO DATI DAL CSV ESTERNO ===== */
 const CSV_URL='supertabella_volpe.csv';
 let data=[];
 
+/* Parser CSV con supporto a virgolette e campi multilinea (delimitatore ';') */
 function parseCsv(text){
-  const lines=text.replace(/^\ufeff/,'').split(/\r?\n/).filter(l=>l.trim());
-  return lines.slice(1).map(l=>{
-    const c=l.split(';').map(v=>v.replace(/^"|"$/g,'').replace(/""/g,'"'));
-    return {stato:(c[0]||'').trim(),atti:c[1]||'',cons:c[2]||'',aut:c[3]||'',note:c[4]||''};
-  }).filter(r=>r.stato);
+  const rows=[];let cur=[''],inQ=false,row=0;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){
+        if(text[i+1]==='"'){cur[row]+='"';i++;}
+        else inQ=false;
+      } else cur[row]+=c;
+    } else {
+      if(c==='"') inQ=true;
+      else if(c===';'){cur.push('');row++;}
+      else if(c==='\n'||c==='\r'){
+        if(c==='\r'&&text[i+1]==='\n') i++;
+        cur=cur.map(v=>v.trim());
+        if(cur.some(v=>v!=='')) rows.push(cur);
+        cur=[''];row=0;
+      } else cur[row]+=c;
+    }
+  }
+  cur=cur.map(v=>v.trim());
+  if(cur.some(v=>v!=='')) rows.push(cur);
+  return rows;
 }
 
-fetch(CSV_URL)
-  .then(r=>{if(!r.ok)throw new Error();return r.text();})
-  .then(t=>{data=parseCsv(t);render();})
+fetch(CSV_URL).then(r=>{if(!r.ok)throw new Error();return r.text();})
+  .then(t=>{
+    const parsed=parseCsv(t.replace(/^\ufeff/,''));
+    data=parsed.slice(1).map(c=>({stato:c[0]||'',atti_sc:c[1]||'',penali:c[2]||'',consolari:c[3]||'',aut:c[4]||'',aja:c[5]||'',note:c[6]||''})).filter(r=>r.stato);
+    render();
+  })
   .catch(()=>{document.getElementById('errbox').style.display='block';});
 
-/* ===== RENDER ===== */
 function tipoPill(t){
   const s=(t||'').toLowerCase();
   if(s.includes('nessuna')) return '<span class="pill none">NESSUNA</span>';
@@ -109,22 +144,26 @@ function tipoPill(t){
   return '';
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function hl(text,q){
-  const e=esc(text);
-  if(!q) return e;
-  const qq=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return e.replace(new RegExp('('+qq+')','gi'),'<mark>$1</mark>');
+function cell(text,q){
+  let e=esc(text).replace(/\n/g,'<br>');
+  if(q){
+    const qq=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    e=e.replace(new RegExp('('+qq+')','gi'),'<mark>$1</mark>');
+  }
+  return e;
 }
 
 function render(){
   const q=document.getElementById('q').value.trim().toLowerCase();
   const ft=document.getElementById('fTipo').value;
+  const fa=document.getElementById('fAja').value;
   const tb=document.getElementById('tb');
   const rows=data.filter(r=>{
-    const hay=(r.stato+' '+r.atti+' '+r.cons+' '+r.aut+' '+r.note).toLowerCase();
+    if(fa && (r.aja||'').toUpperCase()!==fa) return false;
+    const hay=(r.stato+' '+r.atti_sc+' '+r.penali+' '+r.consolari+' '+r.aut+' '+r.note).toLowerCase();
     if(q && !hay.includes(q)) return false;
     if(ft){
-      const blob=(r.atti+' '+r.cons).toLowerCase();
+      const blob=(r.atti_sc+' '+r.penali).toLowerCase();
       if(ft==='apostille' && !blob.includes('apostille')) return false;
       if(ft==='nessuna' && !blob.includes('nessuna')) return false;
       if(ft==='legalizzazione' && !blob.includes('legalizzazione')) return false;
@@ -132,17 +171,20 @@ function render(){
     return true;
   });
   document.getElementById('count').textContent=rows.length+' / '+data.length+' Stati';
-  tb.innerHTML=rows.map((r)=>`<tr>
-      <td class="stato">${hl(r.stato,q)}<div style="margin-top:4px">${tipoPill(r.atti)}</div></td>
-      <td>${hl(r.atti,q)}</td>
-      <td>${hl(r.cons,q)}</td>
-      <td>${hl(r.aut,q)}</td>
-      <td>${hl(r.note,q)}</td>
-    </tr>`).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:30px">Nessun risultato.</td></tr>';
+  tb.innerHTML=rows.map(r=>`<tr>
+      <td class="stato">${cell(r.stato,q)}<div style="margin-top:4px">${tipoPill(r.atti_sc)}${tipoPill(r.penali)}</div></td>
+      <td>${cell(r.atti_sc,q)}</td>
+      <td>${cell(r.penali,q)}</td>
+      <td>${cell(r.consolari,q)}</td>
+      <td>${cell(r.aut,q)}</td>
+      <td style="text-align:center">${r.aja==='SÌ'?'<span class="pill none">SÌ</span>':'<span class="pill leg">NO</span>'}</td>
+      <td>${cell(r.note,q)}</td>
+    </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px">Nessun risultato.</td></tr>';
 }
 
 document.getElementById('q').addEventListener('input',render);
 document.getElementById('fTipo').addEventListener('change',render);
+document.getElementById('fAja').addEventListener('change',render);
 </script>
 </body>
 </html>
