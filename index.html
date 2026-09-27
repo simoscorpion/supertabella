@@ -79,7 +79,6 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border
         <th>Atti dello stato civile</th>
         <th>Certificati penali</th>
         <th>Atti e documenti consolari¹</th>
-        <th>Autorità competenti per il rilascio dell'Apostille, se richiesta</th>
         <th>Parte della Convenzione dell'Aja</th>
         <th>Note<span class="note">(le denominazioni di atti e documenti dipendono dalle norme negli Stati di rilascio — per le formalità richieste prima della vigenza, vedi NOTA ESPLICATIVA punto 1)</span></th>
       </tr></thead>
@@ -131,7 +130,7 @@ function parseCsv(text){
 fetch(CSV_URL).then(r=>{if(!r.ok)throw new Error();return r.text();})
   .then(t=>{
     const parsed=parseCsv(t.replace(/^\ufeff/,''));
-    data=parsed.slice(1).map(c=>({stato:c[0]||'',atti_sc:c[1]||'',penali:c[2]||'',consolari:c[3]||'',aut:c[4]||'',aja:c[5]||'',note:c[6]||''})).filter(r=>r.stato);
+    data=parsed.slice(1).map(c=>({stato:c[0]||'',atti_sc:c[1]||'',penali:c[2]||'',consolari:c[3]||'',aja:c[4]||'',note:c[5]||''})).filter(r=>r.stato);
     render();
   })
   .catch(()=>{document.getElementById('errbox').style.display='block';});
@@ -160,7 +159,7 @@ function render(){
   const tb=document.getElementById('tb');
   const rows=data.filter(r=>{
     if(fa && (r.aja||'').toUpperCase()!==fa) return false;
-    const hay=(r.stato+' '+r.atti_sc+' '+r.penali+' '+r.consolari+' '+r.aut+' '+r.note).toLowerCase();
+    const hay=(r.stato+' '+r.atti_sc+' '+r.penali+' '+r.consolari+' '+r.note).toLowerCase();
     if(q && !hay.includes(q)) return false;
     if(ft){
       const blob=(r.atti_sc+' '+r.penali).toLowerCase();
@@ -176,10 +175,9 @@ function render(){
       <td>${cell(r.atti_sc,q)}</td>
       <td>${cell(r.penali,q)}</td>
       <td>${cell(r.consolari,q)}</td>
-      <td>${cell(r.aut,q)}</td>
       <td style="text-align:center">${r.aja==='SÌ'?'<span class="pill none">SÌ</span>':'<span class="pill leg">NO</span>'}</td>
       <td>${cell(r.note,q)}</td>
-    </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px">Nessun risultato.</td></tr>';
+    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px">Nessun risultato.</td></tr>';
 }
 
 document.getElementById('q').addEventListener('input',render);
