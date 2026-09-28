@@ -173,6 +173,9 @@ const NE = {
 "7":"Per gli atti e documenti pubblici cui è applicabile l'art. 2, paragrafo 1, lettera m) del Regolamento (UE) 2016/1191, sono compresi, fra gli altri, i certificati penali dei cittadini dell'Unione, la cui richiesta può essere inviata tramite il sistema ECRIS al sistema informativo italiano.",
 "8":"A margine si segnala che, in occasione del ricorso giurisdizionale proposto con riferimento agli artt. 54, 76 e 78 del D.P.R. n. 445 del 2000 e che la Corte Costituzionale ha dichiarato manifestamente infondate le questioni di legittimità costituzionale (sentenze n. 6 e 7 del 2010), nel motivare ha osservato che l'acquisizione dei documenti anagrafici (documenti di stato civile, atti di nascita, di matrimonio ecc.), prodotti da uno Stato estero, in fotocopia autenticata o in originale, obbliga l'ufficiale di stato civile ad attenersi a quanto risulta dal documento stesso, senza che gli sia consentito svolgere indagini al riguardo, senza che possa rilevare d'ufficio la falsità del documento e senza che possa indagire, sempre d'ufficio, sulla verità del fatto assunto come vero nel documento."
 };
+const FNDEF = {"1":"1 Atti e documenti rilasciati dalle rappresentanze diplomatiche o consolari estere in Italia.","2":"2 Legalizzazione delle rappresentanze diplomatiche o consolari italiane.","3":"3 Legalizzazione di competenza della Prefettura — Ufficio territoriale del Governo."};
+const FNMAP = {"¹":1,"²":3,"³":4};  /* apicale -> punto Nota Esplicativa */
+const FNTITLE = {1:"Nota Esplicativa — punto 1",2:"Nota Esplicativa — punto 2",3:"Nota Esplicativa — punto 3",4:"Nota Esplicativa — punto 4",5:"Nota Esplicativa — punto 5",7:"Nota Esplicativa — punto 7",8:"Nota Esplicativa — punto 8"};
 
 function fnWrap(e){
   e=e.replace(/([¹²³])/g,m=>`<sup class="fn" data-fn="${FNMAP[m]}">${m}</sup>`);
