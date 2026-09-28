@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supertabella Volpe — Guida allo scambio di atti e documenti pubblici</title>
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --border:#2d3646;
+  --text:#e6e9ef; --muted:#9aa7b8; --accent:#d4a017; --accent2:#f0c040;
+  --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:var(--blue)}
+header{background:linear-gradient(135deg,#101725 0%,#1a2436 100%);border-bottom:3px solid var(--accent);padding:28px 20px 22px;text-align:center}
+header h1{font-size:clamp(1.25rem,3.2vw,1.9rem);letter-spacing:.5px}
+header h1 .gold{color:var(--accent2)}
+header p{color:var(--muted);margin-top:6px;font-size:.88rem;max-width:860px;margin-left:auto;margin-right:auto}
+.badge{display:inline-block;background:var(--accent);color:#111;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;vertical-align:middle;margin-left:8px;letter-spacing:1px;text-transform:uppercase}
+.toolbar{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar input[type=search]{flex:1;min-width:200px;padding:11px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.95rem;outline:none}
+.toolbar input[type=search]:focus{border-color:var(--accent)}
+select{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem}
+#count{color:var(--muted);font-size:.8rem;white-space:nowrap}
+main{padding:20px;max-width:1500px;margin:0 auto}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:1100px}
+thead th{background:var(--panel2);color:var(--accent2);text-align:left;padding:12px 14px;font-size:.76rem;text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid var(--accent);vertical-align:bottom}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.86rem;line-height:1.55}
+tbody tr:hover{background:rgba(212,160,23,.06)}
+td.stato{font-weight:700;color:var(--accent2)}
+mark{background:var(--accent);color:#111;border-radius:3px;padding:0 2px}
+.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700;margin:1px 2px}
+.pill.apo{background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.4)}
+.pill.none{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,50,.4)}
+.pill.leg{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.4)}
+.errbox{display:none;background:rgba(248,81,73,.1);border:1px solid var(--red);color:var(--red);border-radius:12px;padding:20px;margin:20px auto;max-width:700px;font-size:.9rem;line-height:1.8}
+.errbox code{background:var(--bg);padding:2px 8px;border-radius:6px;border:1px solid var(--border)}
+.note{font-size:.72rem;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;display:block;margin-top:4px}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px;border-top:1px solid var(--border);margin-top:30px;line-height:1.8}
+sup.fn,.fn{cursor:help;color:var(--accent2);font-weight:700;text-decoration:underline dotted rgba(240,192,64,.6);font-size:.92em}
+.fn{display:inline}
+.fnpop{position:fixed;z-index:400;display:none;background:var(--panel2);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;max-width:440px;width:max-content;box-shadow:0 6px 24px rgba(0,0,0,.6);font-size:.8rem;line-height:1.6;color:var(--text)}
+.fnpop .t{color:var(--accent2);font-weight:700;display:block;margin-bottom:6px;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px}
+.nemodal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:500;padding:16px}
+.nemodal.open{display:flex}
+.nemodal .box{background:var(--panel);border:1px solid var(--accent);border-radius:14px;padding:24px;width:100%;max-width:760px;max-height:88vh;overflow-y:auto;font-size:.85rem;line-height:1.7}
+.nemodal h3{color:var(--accent2);margin-bottom:4px}
+.nemodal .np{color:var(--accent2);font-weight:700;margin-top:16px}
+.nemodal .close{float:right;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
+@media(max-width:640px){.toolbar{position:static}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SUPERTABELLA <span class="gold">VOLPE</span><span class="badge">Ricerca</span></h1>
+  <p>Guida allo scambio fra Italia ed estero di atti e documenti pubblici, nonché alle procedure per il loro riconoscimento, in particolare per la richiesta della cittadinanza italiana — a cura del Dott. Alberto Volpe (Ministero dell'Interno). I dati sono caricati dal file <b>supertabella_volpe.csv</b>.</p>
+</header>
+
+<div class="toolbar">
+  <input type="search" id="q" placeholder="🔍 Cerca Stato, convenzione, parola chiave… (es. 'Brasile', 'Apostille', 'Bruxelles')">
+  <select id="fTipo">
+    <option value="">Tutte le forme</option>
+    <option value="apostille">Solo Apostille</option>
+    <option value="nessuna">Nessuna legalizzazione</option>
+    <option value="legalizzazione">Legalizzazione</option>
+  </select>
+  <select id="fAja">
+    <option value="">Aja: tutti</option>
+    <option value="SÌ">Aja: SÌ</option>
+    <option value="NO">Aja: NO</option>
+  </select>
+  <span id="count"></span>
+  <button class="btn" id="btnNE" style="border-color:var(--accent);color:var(--accent2)">📖 Nota Esplicativa</button>
+</div>
+
+<div class="errbox" id="errbox">
+  <b>⚠️ Impossibile caricare il file dei dati.</b><br>
+  Il sito legge i dati dal file <code>supertabella_volpe.csv</code>, che deve trovarsi nella <b>stessa cartella</b> di questa pagina.<br>
+  Se hai aperto la pagina con doppio clic e vedi questo messaggio, il browser blocca la lettura di file locali: usa Firefox, oppure avvia un server con <code>python -m http.server</code> e apri <code>http://localhost:8000</code>, oppure pubblica entrambi i file su un hosting (es. GitHub Pages).
+</div>
+
+<main>
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th>Stato di provenienza degli atti e documenti</th>
+        <th>Atti dello stato civile</th>
+        <th>Certificati penali</th>
+        <th>Atti e documenti consolari¹</th>
+        <th>Parte della Convenzione dell'Aja</th>
+        <th>Note<span class="note">(le denominazioni di atti e documenti dipendono dalle norme negli Stati di rilascio — per le formalità richieste prima della vigenza, vedi NOTA ESPLICATIVA punto 1)</span></th>
+      </tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </div>
+
+  <p style="color:var(--muted);font-size:.75rem;margin-top:12px;line-height:1.8">
+    <b>Regola generale</b>: gli atti e documenti pubblici (a eccezione di quelli consolari¹) provenienti da ogni Stato <b>non indicato</b> nella tabella devono avere la legalizzazione diplomatica o consolare²; gli atti e documenti consolari¹ devono avere la legalizzazione prefettizia³, salvo esenzioni (art. 33, commi 2, 4, 5 del D.P.R. 28 dicembre 2000, n. 445).<br>
+    ¹ Atti e documenti rilasciati dalle rappresentanze diplomatiche o consolari estere in Italia. ² Legalizzazione delle rappresentanze diplomatiche o consolari italiane. ³ Legalizzazione di competenza della Prefettura — Ufficio territoriale del Governo.
+  </p>
+</main>
+
+<div class="fnpop" id="fnpop"><span class="t" id="fnpopT"></span><span id="fnpopB"></span></div>
+
+<div class="nemodal" id="neModal"><div class="box">
+<button class="close" id="neClose">×</button>
+<h3>NOTA ESPLICATIVA</h3>
+<div id="neBody" style="white-space:pre-wrap"></div>
+</div></div>
+
+<footer>
+  Supertabella, ovvero guida allo scambio fra Italia ed estero di atti e documenti pubblici — a cura del Dott. Alberto Volpe (Ministero dell'interno).<br>
+  Fonti primarie di consultazione: siti ufficiali degli enti nazionali e sovranazionali; Apostille Section della Conferenza de La Haye de Droit International Privé (HCCH). Uso orientativo.
+</footer>
+
+<script>
+const CSV_URL='supertabella_volpe.csv';
+let data=[];
+
+/* Parser CSV con supporto a virgolette e campi multilinea (delimitatore ';') */
+function parseCsv(text){
+  const rows=[];let cur=[''],inQ=false,row=0;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){
+        if(text[i+1]==='"'){cur[row]+='"';i++;}
+        else inQ=false;
+      } else cur[row]+=c;
+    } else {
+      if(c==='"') inQ=true;
+      else if(c===';'){cur.push('');row++;}
+      else if(c==='\n'||c==='\r'){
+        if(c==='\r'&&text[i+1]==='\n') i++;
+        cur=cur.map(v=>v.trim());
+        if(cur.some(v=>v!=='')) rows.push(cur);
+        cur=[''];row=0;
+      } else cur[row]+=c;
+    }
+  }
+  cur=cur.map(v=>v.trim());
+  if(cur.some(v=>v!=='')) rows.push(cur);
+  return rows;
+}
+
+fetch(CSV_URL).then(r=>{if(!r.ok)throw new Error();return r.text();})
+  .then(t=>{
+    const parsed=parseCsv(t.replace(/^\ufeff/,''));
+    data=parsed.slice(1).map(c=>({stato:c[0]||'',atti_sc:c[1]||'',penali:c[2]||'',consolari:c[3]||'',aja:c[4]||'',note:c[5]||''})).filter(r=>r.stato);
+    render();
+  })
+  .catch(()=>{document.getElementById('errbox').style.display='block';});
+
+function tipoPill(t){
+  const s=(t||'').toLowerCase();
+  if(s.includes('nessuna')) return '<span class="pill none">NESSUNA</span>';
+  if(s.includes('apostille')) return '<span class="pill apo">APOSTILLE</span>';
+  if(s.includes('legalizz')) return '<span class="pill leg">LEGALIZZAZIONE</span>';
+  return '';
+}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ===== NOTA ESPLICATIVA (pagine 71-82 del documento ufficiale) ===== */
+const NE = {
+"1":"Le denominazioni degli atti e documenti (ovvero le rispettive traduzioni) dipendono dalle norme negli Stati di rilascio; per quanto riguarda le tipologie di atti e documenti presentate in tabella e riportate di seguito in corsivo, esse possono essere omogenee rispetto agli atti e documenti contemplati da questa guida, senza esservi del tutto corrispondenti: certificati ed estratti di nascita, di matrimonio e di morte, certificati di stato civile, di capacità matrimoniale, certificati di famiglia e di stato di famiglia, certificati di cittadinanza, di residenza, di esistenza in vita, di stato libero, nulla osta al matrimonio, certificati e federe penali, certificati giudiziari e dei carichi pendenti, sentenze e decreti di divorzio, documenti militari e atti notarili (atti di notorietà, procure, testamenti olografi con ricognizione di firma, patti, atti e contratti, verbali, autenticazioni di copia e di firma) e atti amministrativi. Per le formalità richieste precedentemente alla data di vigenza, vanno considerate come fossero state effettuate alla data di vigenza.",
+"2":"Per questi atti e documenti la legalizzazione non è richiesta, ma potrebbe essere necessaria la traduzione, come illustrato nel punto 4 di questa NOTA ESPLICATIVA.",
+"3":"Atti e documenti: gli atti e documenti pubblici (a eccezione di quelli consolari¹) provenienti da ogni Stato non indicato nella tabella devono avere la legalizzazione diplomatica o consolare²; gli atti e documenti consolari¹ devono avere la legalizzazione prefettizia³, salvo esenzioni (art. 33, commi 2, 4, 5 del D.P.R. 28 dicembre 2000, n. 445). Per legalizzazione diplomatica o consolare² si intende la legalizzazione delle rappresentanze diplomatiche o consolari italiane.",
+"4":"Nelle more dell'individuazione delle soluzioni organizzative e tecnico operative necessarie per attuare quanto previsto dall'art. 16 del D.P.R. 28 dicembre 2000, n. 445, i pubblici ufficiali e i privati interessati provvedono, nel rispetto delle norme in materia di traduzioni e nel rispetto delle esigenze di certezza e verificabilità dei traduttori, mediante l'individuazione del traduttore perito o asseveratore, l'apposizione di un timbro o di una dichiarazione di conformità su cui il traduttore appone, a pena di invalidità, la data e la firma, debitamente autenticate secondo la legge (Circolari del Ministero della giustizia n. 1792 del 5 marzo 2014 e n. 5426 del 13 dicembre 2017, quest'ultima recante il modello di dichiarazione di conformità, e Circolare del Ministero dell'interno n. 15069 del 26 settembre 2018). Per questi atti e documenti la traduzione dovrà essere legalizzata² (ovvero dovrà avere la legalizzazione delle rappresentanze diplomatiche o consolari italiane). Si ricorda che non rilevano ai fini dell'accettazione in Italia delle traduzioni effettuate dalle Rappresentanze diplomatiche o consolari in Italia, in quanto esenti³ dalla legalizzazione prefettizia, mentre, per particolari esigenze, queste ultime possono essere accettate, salvo il contraddittorio di cui al punto 5.",
+"5":"Poiché questa guida si attiene ai contenuti della Convenzione di Vienna dell'8 settembre 1976, delle altre convenzioni di diritto internazionale privato e della prassi consolidata, gli utenti possono fare riferimento unicamente alle sole formalità che, per essere state eseguite in epoca anteriore al 15 dicembre 2004, non sono state notificate ai sensi della L. 25 marzo 1958, n. 204, sono: qualsiasi legalizzazione e qualsiasi atto di traduzione autenticato.",
+"7":"Per gli atti e documenti pubblici cui è applicabile l'art. 2, paragrafo 1, lettera m) del Regolamento (UE) 2016/1191, sono compresi, fra gli altri, i certificati penali dei cittadini dell'Unione, la cui richiesta può essere inviata tramite il sistema ECRIS al sistema informativo italiano.",
+"8":"A margine si segnala che, in occasione del ricorso giurisdizionale proposto con riferimento agli artt. 54, 76 e 78 del D.P.R. n. 445 del 2000 e che la Corte Costituzionale ha dichiarato manifestamente infondate le questioni di legittimità costituzionale (sentenze n. 6 e 7 del 2010), nel motivare ha osservato che l'acquisizione dei documenti anagrafici (documenti di stato civile, atti di nascita, di matrimonio ecc.), prodotti da uno Stato estero, in fotocopia autenticata o in originale, obbliga l'ufficiale di stato civile ad attenersi a quanto risulta dal documento stesso, senza che gli sia consentito svolgere indagini al riguardo, senza che possa rilevare d'ufficio la falsità del documento e senza che possa indagire, sempre d'ufficio, sulla verità del fatto assunto come vero nel documento."
+};
+
+function fnWrap(e){
+  e=e.replace(/([¹²³])/g,m=>`<sup class="fn" data-fn="${FNMAP[m]}">${m}</sup>`);
+  e=e.replace(/punto (\d)\)/g,(m,n)=>NE[n]?`<span class="fn" data-fn="${n}">${m}</span>`:m);
+  return e;
+}
+const pop=document.getElementById('fnpop');
+function showFn(el){
+  const n=el.dataset.fn;
+  document.getElementById('fnpopT').textContent=FNTITLE[n]||('Nota '+n);
+  document.getElementById('fnpopB').textContent=NE[n]||'';
+  pop.style.display='block';
+  const r=el.getBoundingClientRect();
+  let x=r.left, y=r.bottom+8;
+  const pw=pop.offsetWidth, ph=pop.offsetHeight;
+  if(x+pw>window.innerWidth-8) x=window.innerWidth-pw-8;
+  if(y+ph>window.innerHeight-8) y=r.top-ph-8;
+  pop.style.left=Math.max(8,x)+'px'; pop.style.top=Math.max(8,y)+'px';
+}
+function hideFn(){pop.style.display='none';}
+document.getElementById('tb').addEventListener('mouseover',e=>{const el=e.target.closest('.fn');if(el)showFn(el);});
+document.getElementById('tb').addEventListener('mouseout',e=>{if(e.target.closest('.fn'))hideFn();});
+document.getElementById('tb').addEventListener('click',e=>{const el=e.target.closest('.fn');if(el){e.preventDefault();showFn(el);}});
+document.addEventListener('click',e=>{if(!e.target.closest('.fn')&&!e.target.closest('#fnpop'))hideFn();});
+
+/* Modal Nota Esplicativa completa */
+let neHtml='';
+for(const n of ["1","2","3","4","5","7","8"]){
+  neHtml+=`<div class="np">PUNTO ${n}</div><div>${NE[n]}</div>`;
+}
+neHtml+='<div class="np">NOTE DI PAGINA</div><div>'+FNDEF["1"]+'<br>'+FNDEF["2"]+'<br>'+FNDEF["3"]+'</div>';
+document.getElementById('neBody').innerHTML=neHtml;
+document.getElementById('btnNE').onclick=()=>document.getElementById('neModal').classList.add('open');
+document.getElementById('neClose').onclick=()=>document.getElementById('neModal').classList.remove('open');
+document.getElementById('neModal').addEventListener('click',e=>{if(e.target.id==='neModal')e.target.classList.remove('open');});
+
+function cell(text,q){
+  let e=esc(text).replace(/\n/g,'<br>');
+  if(q){
+    const qq=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    e=e.replace(new RegExp('('+qq+')','gi'),'<mark>$1</mark>');
+  }
+  return fnWrap(e);
+}
+
+function render(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const ft=document.getElementById('fTipo').value;
+  const fa=document.getElementById('fAja').value;
+  const tb=document.getElementById('tb');
+  const rows=data.filter(r=>{
+    if(fa && (r.aja||'').toUpperCase()!==fa) return false;
+    const hay=(r.stato+' '+r.atti_sc+' '+r.penali+' '+r.consolari+' '+r.note).toLowerCase();
+    if(q && !hay.includes(q)) return false;
+    if(ft){
+      const blob=(r.atti_sc+' '+r.penali).toLowerCase();
+      if(ft==='apostille' && !blob.includes('apostille')) return false;
+      if(ft==='nessuna' && !blob.includes('nessuna')) return false;
+      if(ft==='legalizzazione' && !blob.includes('legalizzazione')) return false;
+    }
+    return true;
+  });
+  document.getElementById('count').textContent=rows.length+' / '+data.length+' Stati';
+  tb.innerHTML=rows.map(r=>`<tr>
+      <td class="stato">${cell(r.stato,q)}<div style="margin-top:4px">${tipoPill(r.atti_sc)}${tipoPill(r.penali)}</div></td>
+      <td>${cell(r.atti_sc,q)}</td>
+      <td>${cell(r.penali,q)}</td>
+      <td>${cell(r.consolari,q)}</td>
+      <td style="text-align:center">${r.aja==='SÌ'?'<span class="pill none">SÌ</span>':'<span class="pill leg">NO</span>'}</td>
+      <td>${cell(r.note,q)}</td>
+    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px">Nessun risultato.</td></tr>';
+}
+
+document.getElementById('q').addEventListener('input',render);
+document.getElementById('fTipo').addEventListener('change',render);
+document.getElementById('fAja').addEventListener('change',render);
+</script>
+</body>
+</html>
